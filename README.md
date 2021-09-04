@@ -43,20 +43,23 @@ A sneak peek at the data revealed its columns, its size/shape, the different typ
 In MySQLWorkbench, a new database was made, named "credit_card_classification". In order to use the Table Data Import Wizard, a tool to import data in bulk into MySQLWorkbench, it was essential to standardize the headers of the columns. In order to obtain the so-called snake_case, all characters were converted to lower case and each space was replaced with a _ using a for loop. After, the hashtags from the headers were deleted using the same type of for loop. 
 Again using Pandas, a copy of the data was generated into a CSV file(creditcardmarketing_sql.csv) and imported into SQL, using the aforementioned Table Data Import Wizard. The table was named "credit_card_data". With a query selecting everything from the table "credit_card_data" it was apparent that the data was imported in a correct manner. The senior management requested that the column "q4_balance" was dropped from the table, as it wouldn't be used in the analysis in SQL. To drop "q4_balance" a query was executed and the colmun was deleted from the table (the query to check if it worked was set to return a limit of 10 rows, as per request). However, the IF EXISTS syntax did not work, hence this query is only visible in the file(sql_queries.sql) as a comment (line 5 & 6). Finally, a query was executed to count the number of rows in the data. The result showed that the number of rows imported into SQL was 17,976 instead of 18,000. The reason for this is unknown, but the loss of data of the 24 rows was deemed acceptable, because of its proportion to the dataset. 
 
-### 5. Answering the posed questions in SQL
+### 4.1 Answering the posed questions in SQL
 Senior management wanted to have answers to the following questions:
 - What are the unique values in the column `offer_accepted`?
 - What are the unique values in the column `reward`?
 - What are the unique values in the column `mailer_type`?
 - What are the unique values in the column `credit_cards_held`?
 - What are the unique values in the column `household_size`?
-            For each of these questions, the DISTINCT syntax was used.
+
+For each of these questions, the DISTINCT syntax was used.
 
 - Arrange the data in a decreasing order by the average_balance of the house. Return only the customer_number of the top 10 customers with the highest average_balances in your data.
-            A query was made using the ORDER BY syntax and limiting the returning results to 10. 
+
+A query was made using the ORDER BY syntax and limiting the returning results to 10. 
 
 - What is the average balance of all the customers in your data?
-            The questions was answered by querying the average of the average_balance column using the AVG syntax.
+
+The questions was answered by querying the average of the average_balance column using the AVG syntax.
 
 - What is the average balance of the customers grouped by `income_level`? The returned result should have only two columns, income level and `Average balance` of the customers. Use an alias to change the name of the second column.
 - What is the average balance of the customers grouped by `number_of_bank_accounts_open`? The returned result should have only two columns, `number_of_bank_accounts_open` and `Average balance` of the customers. Use an alias to change the name of the second column.
@@ -83,6 +86,12 @@ Write a simple query to find what are the options available for them? Can you fi
 - In the database, which all types of communication (mailer_type) were used and with how many customers?
 
 - Provide the details of the customer that is the 11th least Q1_balance in your database.
+
+### 5. Data prep
+In this chapter the dataset was checked for non-alphanumerical characters, null values, correlations, type of distribution and outliers. The correlations of the numerical variables were checked using the corr() method, heatmapping & the Variance Inflation Factor. The correlations of the categorical variables were checked by executing Chi-Square tests. BoxCox transformation was applied to the continuous variables (average balance and the average balances per quarter) in order to reach a bit more normal of a distribution. Outliers were removed using a function for the continuous variables and capped for the count variables.
+In the final part of this chapter, using ColumnTransformer, the data is prepared for fitting a model. The categorical variables were either OneHotEncoded or OrdinalEncoded and the continuous variables were standardized. 
+
+### 6. 
 
 
 
