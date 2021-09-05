@@ -1,9 +1,11 @@
 # P2_creditcard_offer
 
+![card](/Users/elissadejong/P2_creditcard_offer/UZoH.gif)
+
 ## TAKING ON THE ROLE OF A RISK ANALYST AT THE BIG BANK OF THE PEOPLE
 Far away, in a country with lots of sunshine, there is a bank in a town called Big: The Big Bank of the People. 
 Currently i am working there as a risk analyst. 
-Apart from the other banking and loan services, the bank also provides credit card services which are a very important source of revenue for the bank. The bank wants to understand the demographics and other characteristics of those customers accepting a credit card offer and those not accepting a credit card offer. Usually the observational data for these kind of problems is limited in that often the company sees only those who respond to an offer. To tackle this, the bank designed a focused-marketing study, with a sample of 18,000 current bank customers. This focused-marketing approach allows the bank to gain information on who does and who does not respond to the offer, and to use existing demographic data already available on each customer.
+Apart from the other banking and loan services, the bank also provides credit card services which are a very important source of revenue for the bank. The focused-marketing approach at hand allows the bank to gain information on who does and who does not respond to a creditcard offer, and to use existing demographic data already available on each customer.
 
 ## OBJECTIVES
 The main task was to build a model that provides insight into why bank customers accept credit card offers. There are also other potential areas of opportunities that the bank wanted to understand from the data. The senior management also posed these other questions to help them better understand their customers.
@@ -44,54 +46,25 @@ In MySQLWorkbench, a new database was made, named "credit_card_classification". 
 Again using Pandas, a copy of the data was generated into a CSV file(creditcardmarketing_sql.csv) and imported into SQL, using the aforementioned Table Data Import Wizard. The table was named "credit_card_data". With a query selecting everything from the table "credit_card_data" it was apparent that the data was imported in a correct manner. The senior management requested that the column "q4_balance" was dropped from the table, as it wouldn't be used in the analysis in SQL. To drop "q4_balance" a query was executed and the colmun was deleted from the table (the query to check if it worked was set to return a limit of 10 rows, as per request). However, the IF EXISTS syntax did not work, hence this query is only visible in the file(sql_queries.sql) as a comment (line 5 & 6). Finally, a query was executed to count the number of rows in the data. The result showed that the number of rows imported into SQL was 17,976 instead of 18,000. The reason for this is unknown, but the loss of data of the 24 rows was deemed acceptable, because of its proportion to the dataset. 
 
 ### 4.1 Answering the posed questions in SQL
-Senior management wanted to have answers to the following questions:
-- What are the unique values in the column `offer_accepted`?
-- What are the unique values in the column `reward`?
-- What are the unique values in the column `mailer_type`?
-- What are the unique values in the column `credit_cards_held`?
-- What are the unique values in the column `household_size`?
-
-For each of these questions, the DISTINCT syntax was used.
-
-- Arrange the data in a decreasing order by the average_balance of the house. Return only the customer_number of the top 10 customers with the highest average_balances in your data.
-
-A query was made using the ORDER BY syntax and limiting the returning results to 10. 
-
-- What is the average balance of all the customers in your data?
-
-The questions was answered by querying the average of the average_balance column using the AVG syntax.
-
-- What is the average balance of the customers grouped by `income_level`? The returned result should have only two columns, income level and `Average balance` of the customers. Use an alias to change the name of the second column.
-- What is the average balance of the customers grouped by `number_of_bank_accounts_open`? The returned result should have only two columns, `number_of_bank_accounts_open` and `Average balance` of the customers. Use an alias to change the name of the second column.
-- What is the average number of credit cards held by customers for each of the credit card ratings? The returned result should have only two columns, rating and average number of credit cards held. Use an alias to change the name of the second column.
-            Using a combination of 
-
-- Is there any correlation between the columns `credit_cards_held` and `number_of_bank_accounts_open`? You can analyse this by grouping the data by one of the variables and then aggregating the results of the other column. Visually check if there is a positive correlation or negative correlation or no correlation between the variables.
-You might also have to check the number of customers in each category (ie number of credit cards held) to assess if that category is well represented in the dataset to include it in your analysis. For eg. If the category is under-represented as compared to other categories, ignore that category in this analysis
-- Our managers are only interested in the customers with the following properties:
-    - Credit rating medium or high
-    - Credit cards held 2 or less
-    - Owns their own home
-    - Household size 3 or more
-Write a simple query to find what are the options available for them? Can you filter the customers who accepted the offers here?
-
-- Your managers want to find out the list of customers whose average balance is less than the average balance of all the customers in the database. Write a query to show them the list of such customers. You might need to use a subquery for this problem.
-
-- Since this is something that the senior management is regularly interested in, create a view called Customers__Balance_View1 of the same query.
-
-- What is the number of people who accepted the offer vs number of people who did not?
-
-- Your managers are more interested in customers with a credit rating of high or medium. What is the difference in average balances of the customers with high credit card rating and low credit card rating?
-
-- In the database, which all types of communication (mailer_type) were used and with how many customers?
-
-- Provide the details of the customer that is the 11th least Q1_balance in your database.
+Senior management gained some more knowledgde through the SQL queries which were executed. Please refer to the .sql file in the repo for the questions & results. 
 
 ### 5. Data prep
 In this chapter the dataset was checked for non-alphanumerical characters, null values, correlations, type of distribution and outliers. The correlations of the numerical variables were checked using the corr() method, heatmapping & the Variance Inflation Factor. The correlations of the categorical variables were checked by executing Chi-Square tests. BoxCox transformation was applied to the continuous variables (average balance and the average balances per quarter) in order to reach a bit more normal of a distribution. Outliers were removed using a function for the continuous variables and capped for the count variables.
 In the final part of this chapter, using ColumnTransformer, the data is prepared for fitting a model. The categorical variables were either OneHotEncoded or OrdinalEncoded and the continuous variables were standardized. 
 
-### 6. 
+### 6. - 11.
+Fitting & training models using different techniques and combinations:
+- Logistic regression vs. KNN
+- Entire dataset vs. less features 
+- UpSampling (SMOTE) vs. DownSampling (class_weight)
+- Standardizing continuous variables vs. standardizing all independent variables
+
+### 12. - 13.
+In this section you will find the tentative conclusion, as more work and time still need to be invested.
+
+### 14. 
+Please refer to the Tableau file for some interesting insights about the dataset.  
+
 
 
 
